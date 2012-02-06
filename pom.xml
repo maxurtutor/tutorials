@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.maxur</groupId>
+    <artifactId>tutorials</artifactId>
+    <version>0.1</version>
+    <packaging>pom</packaging>
+
+    <url>http://www.maxur.org</url>
+
+    <name>Tutorials (maxur.org)</name>
+
+    <description>Top-level POM</description>
+
+    <organization>
+        <name>Maxim Yunusov</name>
+        <url>http://www.maxur.org</url>
+    </organization>
+
+    <licenses>
+        <license>
+            <name>Apache 2</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+            <comments>A business-friendly OSS license</comments>
+        </license>
+    </licenses>
+
+    <scm>
+        <developerConnection>scm:git@github.com:myunusov/tutorials.git</developerConnection>
+        <url>https://github.com:myunusov/tutorials.git</url>
+    </scm>
+
+    <issueManagement>
+        <system>GitHub Social Coding</system>
+        <url>https://github.com:myunusov/tutorials.git/issues</url>
+    </issueManagement>
+
+    <properties>
+        <project.source.encoding>UTF-8</project.source.encoding>
+        <project.source.compile>1.7</project.source.compile>
+        <project.target.compile>1.7</project.target.compile>
+    </properties>
+
+    <modules>
+    </modules>
+
+    <profiles>
+        <!--DEV PROFILE -->
+        <profile>
+            <id>DEV</id>
+            <properties>
+                <env>DEV</env>
+            </properties>
+        </profile>
+        <!--QA PROFILE -->
+        <profile>
+            <id>QA</id>
+            <properties>
+                <env>QA</env>
+            </properties>
+        </profile>
+        <!--PROD PROFILE -->
+        <profile>
+            <id>PROD</id>
+            <properties>
+                <env>PROD</env>
+            </properties>
+        </profile>
+    </profiles>
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>2.3.2</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>2.5</version>
+                    <configuration>
+                        <encoding>${project.source.encoding}</encoding>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>2.1.2</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>2.9</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>2.1.1</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${project.source.compile}</source>
+                    <target>${project.target.compile}</target>
+                    <encoding>${project.source.encoding}</encoding>
+                    <showDeprecation>true</showDeprecation>
+                    <showWarnings>true</showWarnings>
+                    <fork>true</fork>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <encoding>${project.source.encoding}</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>integration-test</id>
+                        <goals>
+                            <goal>integration-test</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>verify</id>
+                        <goals>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <forkMode>pertest</forkMode>
+                    <!-- <argLine>-javaagent:tools/org.springframework.instrument-3.0.4.RELEASE.jar -ea</argLine>-->
+                    <encoding>${project.source.encoding}</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <reporting>
+        <excludeDefaults>true</excludeDefaults>
+        <outputDirectory>${project.build.directory}/site</outputDirectory>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <locales>en</locales>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
+                    <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
+                </configuration>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>index</report>
+                            <report>dependencies</report>
+                            <report>scm</report>
+                            <report>cim</report>
+                            <report>issue-tracking</report>
+                            <report>summary</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.8</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.8.1</version>
+                <configuration>
+                    <source>${project.source.compile}</source>
+                    <encoding>${project.source.encoding}</encoding>
+                    <linksource>true</linksource>
+                    <excludePackageNames>*.it,*.test</excludePackageNames>
+                    <useStandardDocletOptions>true</useStandardDocletOptions>
+                    <aggregate>true</aggregate>
+
+                    <doclet>gr.spinellis.umlgraph.doclet.UmlGraphDoc</doclet>
+                    <docletArtifact>
+                        <groupId>gr.spinellis</groupId>
+                        <artifactId>UmlGraph</artifactId>
+                        <version>4.6</version>
+                    </docletArtifact>
+                    <additionalparam>
+                        -inferrel -inferdep -quiet -hide java.*
+                        -collpackages java.util.* -qualify
+                        -postfixpackage -nodefontsize 9
+                        -nodefontpackagesize 7
+                        -edgefontname "Trebuchet MS"
+                        -nodefontabstractname "Trebuchet MS"
+                        -nodefontclassabstractname "Trebuchet MS"
+                        -nodefontclassname "Trebuchet MS"
+                        -nodefontname "Trebuchet MS"
+                        -nodefontpackagename "Trebuchet MS"
+                        -nodefonttagname "Trebuchet MS"
+                        -link "http://java.sun.com/javase/7/docs/api/"
+                    </additionalparam>
+
+                    <links>
+                        <link>http://java.sun.com/javase/7/docs/api/</link>
+                        <link>http://wicket.apache.org/apidocs/1.5/</link>
+                        <link>http://google-guice.googlecode.com/git/javadoc/</link>
+                        <link>http://www.slf4j.org/api/</link>
+                        <link>http://commons.apache.org/logging/commons-logging-1.0.3/docs/api/</link>
+                    </links>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </reporting>
+
+    <dependencyManagement>
+
+    </dependencyManagement>
+
+    <dependencies>
+        <!-- Unit Testing -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.10</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>1.9.0</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <repositories>
+        <repository>
+            <id>com.springsource.repository.bundles.release</id>
+            <name>SpringSource Enterprise Bundle Repository - SpringSource Bundle Releases</name>
+            <url>http://repository.springsource.com/maven/bundles/release</url>
+        </repository>
+        <repository>
+            <id>com.springsource.repository.bundles.external</id>
+            <name>SpringSource Enterprise Bundle Repository - External Bundle Releases</name>
+            <url>http://repository.springsource.com/maven/bundles/external</url>
+        </repository>
+        <repository>
+            <id>wpt-release</id>
+            <url>http://wicketpagetest.sourceforge.net/m2-repo/releases</url>
+        </repository>
+        <repository>
+            <id>ops4j.repository</id>
+            <url>http://repository.ops4j.org/maven2</url>
+        </repository>
+        <repository>
+            <id>Apache Nexus</id>
+            <url>https://repository.apache.org/content/repositories/snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+
+    </repositories>
+
+
+</project>

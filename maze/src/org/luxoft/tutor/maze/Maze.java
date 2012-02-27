@@ -16,7 +16,14 @@ public class Maze {
 		return rooms.get(number);
 	}
 
-	public void addRoom(Room room) {
+    private void addRoom(Room room) {
 		rooms.put(room.getRoomNumber(), room);
 	}
+
+    public Room makeRoom(final int number) {
+        Room room = new Room(number);
+        addRoom(room);
+        return room;
+    }
+
 }

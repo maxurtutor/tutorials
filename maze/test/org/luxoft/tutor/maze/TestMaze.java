@@ -7,24 +7,24 @@ public class TestMaze {
 
     @Test
     public void testMazeBuild() throws Exception {
-        Maze maze = new Maze();
-        Room r1 = new Room(1);
-        maze.addRoom(r1);
-        Room r2 = new Room(2);
-        maze.addRoom(r2);
-        Door d = new Door(r1, r2);
+        final Maze maze = new Maze();
 
-        r1.setSide(Room.NORTH, new Wall());
-        r1.setSide(Room.EAST, d);
-        r1.setSide(Room.SOUTH, new Wall());
-        r1.setSide(Room.WEST, new Wall());
+        final Room room1 = maze.makeRoom(1);
+        final Room room2 = maze.makeRoom(2);
 
-        r2.setSide(Room.NORTH, new Wall());
-        r2.setSide(Room.EAST, new Wall());
-        r2.setSide(Room.SOUTH, new Wall());
-        r2.setSide(Room.WEST, d);
+        final Door door = new Door(room1, room2);
 
-        Assert.assertEquals(maze.romNo(1), d.otherSideFrom(r2));
+        room1.setSide(Room.NORTH, new Wall());
+        room1.setSide(Room.EAST, door);
+        room1.setSide(Room.SOUTH, new Wall());
+        room1.setSide(Room.WEST, new Wall());
+
+        room2.setSide(Room.NORTH, new Wall());
+        room2.setSide(Room.EAST, new Wall());
+        room2.setSide(Room.SOUTH, new Wall());
+        room2.setSide(Room.WEST, door);
+
+        Assert.assertEquals(maze.romNo(1), door.otherSideFrom(room2));
     }
 
 }

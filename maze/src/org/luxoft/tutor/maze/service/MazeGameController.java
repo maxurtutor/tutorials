@@ -2,7 +2,6 @@ package org.luxoft.tutor.maze.service;
 
 import org.luxoft.tutor.maze.api.Game;
 import org.luxoft.tutor.maze.api.Maze;
-import org.luxoft.tutor.maze.domain.GameImpl;
 
 /**
  * @author Maxim Yunusov
@@ -11,10 +10,8 @@ import org.luxoft.tutor.maze.domain.GameImpl;
  */
 public class MazeGameController {
 
-    private final Game game = new GameImpl(); //TODO
-
     public void newGame() {
-        final Maze maze = game.createMaze();
+        final Maze maze = Game.getInstance().createMaze();
     }
 
 }

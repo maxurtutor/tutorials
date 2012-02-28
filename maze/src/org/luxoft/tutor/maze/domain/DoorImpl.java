@@ -9,6 +9,10 @@ public class DoorImpl extends Door {
 		super(room1, room2);
 	}
 
+    public DoorImpl() {
+
+    }
+
     @Override
     public void enter() {
 		// TODO Auto-generated method stub

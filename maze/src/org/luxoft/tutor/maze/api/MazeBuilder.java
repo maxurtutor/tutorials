@@ -11,7 +11,7 @@ public abstract class MazeBuilder {
 
     public abstract MazeBuilder addRoom(int room1, int room2, int side);
 
-    public abstract MazeBuilder addDoor(int room1, int room2, int side);
+    public abstract MazeBuilder addDoor(final String id, int room1, int room2, int side);
 
     public abstract Maze build();
 }

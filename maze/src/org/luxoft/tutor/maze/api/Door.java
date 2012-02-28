@@ -9,14 +9,15 @@ public abstract class Door extends MapSite {
 
     private boolean open = false;
 
-    protected final Room room1;
+    private Room room1;
 
-    protected final Room room2;
+    private Room room2;
+
+    protected Door() {
+    }
 
     protected Door(final Room room1, final Room room2) {
-        assert (null != room1 && null != room2);
-        this.room1 = room1;
-        this.room2 = room2;
+        init(room1, room2);
     }
 
     public boolean isOpen() {
@@ -36,5 +37,11 @@ public abstract class Door extends MapSite {
         } else {
             return null;
         }
+    }
+
+    public void init(final Room room1, final Room room2) {
+        assert (null != room1 && null != room2);
+        this.room1 = room1;
+        this.room2 = room2;
     }
 }

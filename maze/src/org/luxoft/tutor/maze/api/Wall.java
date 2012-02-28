@@ -5,8 +5,6 @@ package org.luxoft.tutor.maze.api;
  * @version 1.0
  * @since <pre>2/28/12</pre>
  */
-public interface Game {
-
-    Maze createMaze();
+public abstract class Wall extends MapSite {
 
 }

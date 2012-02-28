@@ -1,6 +1,7 @@
 package org.luxoft.tutor.maze.domain;
 
 import org.luxoft.tutor.maze.api.Game;
+import org.luxoft.tutor.maze.api.Maze;
 
 /**
  * @author Maxim Yunusov

@@ -11,7 +11,7 @@ public class MazeImpl extends Maze {
 
     @Override
     public Room makeRoom(final int number) {
-        Room room = new RoomImpl(number);
+        final Room room = new RoomImpl(number);
         addRoom(room);
         return room;
     }

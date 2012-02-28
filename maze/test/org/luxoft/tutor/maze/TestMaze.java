@@ -13,11 +13,9 @@ import org.luxoft.tutor.maze.domain.WallImpl;
 
 public class TestMaze {
 
-    private Game game;
-
     @Before
     public void setUp() {
-        game = new Game() {
+        final Game game = new Game() {
 
             public Maze createMaze() {
                 final Maze maze = new MazeImpl();
@@ -39,11 +37,12 @@ public class TestMaze {
                 return maze;
             }
         };
+        Game.setInstance(game);
     }
 
     @Test
     public void testMazeBuild() throws Exception {
-        final Maze maze = game.createMaze();
+        final Maze maze = Game.getInstance().createMaze();
         final Room r1 = maze.romNo(1);
         final Room r2 = maze.romNo(2);
         final Door d = (Door) r2.getSide(Room.WEST);

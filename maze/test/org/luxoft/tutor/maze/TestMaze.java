@@ -7,9 +7,7 @@ import org.luxoft.tutor.maze.api.Door;
 import org.luxoft.tutor.maze.api.Game;
 import org.luxoft.tutor.maze.api.Maze;
 import org.luxoft.tutor.maze.api.Room;
-import org.luxoft.tutor.maze.domain.DoorImpl;
-import org.luxoft.tutor.maze.domain.MazeImpl;
-import org.luxoft.tutor.maze.domain.WallImpl;
+import org.luxoft.tutor.maze.domain.MazeBuilderImpl;
 
 public class TestMaze {
 
@@ -18,23 +16,11 @@ public class TestMaze {
         final Game game = new Game() {
 
             public Maze createMaze() {
-                final Maze maze = new MazeImpl();
-
-                final Room room1 = maze.makeRoom(1);
-                final Room room2 = maze.makeRoom(2);
-
-                final Door door = new DoorImpl(room1, room2);
-
-                room1.setSide(Room.NORTH, new WallImpl());
-                room1.setSide(Room.EAST, door);
-                room1.setSide(Room.SOUTH, new WallImpl());
-                room1.setSide(Room.WEST, new WallImpl());
-
-                room2.setSide(Room.NORTH, new WallImpl());
-                room2.setSide(Room.EAST, new WallImpl());
-                room2.setSide(Room.SOUTH, new WallImpl());
-                room2.setSide(Room.WEST, door);
-                return maze;
+                return new MazeBuilderImpl()
+                        .addRoom(1)
+                        .addRoom(2)
+                        .addDoor(1, 2, Room.EAST)
+                        .build();
             }
         };
         Game.setInstance(game);

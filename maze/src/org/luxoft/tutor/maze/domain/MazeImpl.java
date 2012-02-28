@@ -5,7 +5,7 @@ import org.luxoft.tutor.maze.api.Room;
 
 public class MazeImpl extends Maze {
 
-    public MazeImpl() {
+    MazeImpl() {
 		super();
     }
 

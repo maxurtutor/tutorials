@@ -7,10 +7,10 @@ package org.luxoft.tutor.maze.api;
  */
 public abstract class Room extends MapSite {
 
-    static public int NORTH = 0;
-    static public int SOUTH = 1;
-    static public int EAST = 2;
-    static public int WEST = 3;
+    static final public int NORTH = 0;
+    static final public int SOUTH = 1;
+    static final public int EAST = 2;
+    static final public int WEST = 3;
 
     private final Integer roomNumber;
 

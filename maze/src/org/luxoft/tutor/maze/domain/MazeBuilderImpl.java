@@ -1,10 +1,14 @@
 package org.luxoft.tutor.maze.domain;
 
-import org.luxoft.tutor.maze.api.MazeBuilder;
+import org.luxoft.tutor.maze.api.Door;
 import org.luxoft.tutor.maze.api.Maze;
+import org.luxoft.tutor.maze.api.MazeBuilder;
 import org.luxoft.tutor.maze.api.Room;
 
-import static org.luxoft.tutor.maze.api.Room.*;
+import static org.luxoft.tutor.maze.api.Room.EAST;
+import static org.luxoft.tutor.maze.api.Room.NORTH;
+import static org.luxoft.tutor.maze.api.Room.SOUTH;
+import static org.luxoft.tutor.maze.api.Room.WEST;
 
 /**
  * @author Maxim Yunusov
@@ -33,8 +37,8 @@ public class MazeBuilderImpl extends MazeBuilder {
     }
 
     @Override
-    public MazeBuilder addDoor(int room1, int room2, int side) {
-        final DoorImpl door = new DoorImpl(getRoom(room1), getRoom(room2));
+    public MazeBuilder addDoor(final String id, int room1, int room2, int side) {
+        final Door door = DoorFactory.getInstance().make(id, getRoom(room1), getRoom(room2));
         getRoom(room1).setSide(side, door);
         getRoom(room2).setSide(oppositeSide(side), door);
         return this;
@@ -47,11 +51,16 @@ public class MazeBuilderImpl extends MazeBuilder {
 
     private int oppositeSide(int side) {
         switch (side) {
-            case EAST: return WEST;
-            case NORTH: return SOUTH;
-            case SOUTH: return NORTH;
-            case WEST: return EAST;
-            default: assert false: "Unknown side";
+            case EAST:
+                return WEST;
+            case NORTH:
+                return SOUTH;
+            case SOUTH:
+                return NORTH;
+            case WEST:
+                return EAST;
+            default:
+                assert false : "Unknown side";
                 return -1;
         }
     }

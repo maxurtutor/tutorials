@@ -7,19 +7,25 @@ import org.luxoft.tutor.maze.api.Door;
 import org.luxoft.tutor.maze.api.Game;
 import org.luxoft.tutor.maze.api.Maze;
 import org.luxoft.tutor.maze.api.Room;
+import org.luxoft.tutor.maze.domain.DoorFactory;
+import org.luxoft.tutor.maze.domain.DoorImpl;
 import org.luxoft.tutor.maze.domain.MazeBuilderImpl;
 
 public class TestMaze {
 
     @Before
     public void setUp() {
+        DoorFactory.getInstance().persist("door", new DoorImpl());
+        DoorFactory.getInstance().persist("magicDoor", new DoorImpl() {});
         final Game game = new Game() {
 
             public Maze createMaze() {
                 return new MazeBuilderImpl()
                         .addRoom(1)
                         .addRoom(2)
-                        .addDoor(1, 2, Room.EAST)
+                        .addDoor("door", 1, 2, Room.EAST)
+                        .addRoom(3)
+                        .addDoor("magicDoor", 1, 3, Room.NORTH)
                         .build();
             }
         };

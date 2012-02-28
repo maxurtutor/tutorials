@@ -3,11 +3,13 @@ package org.luxoft.tutor.maze;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.luxoft.tutor.maze.api.Door;
 import org.luxoft.tutor.maze.api.Game;
-import org.luxoft.tutor.maze.domain.Door;
-import org.luxoft.tutor.maze.domain.Maze;
-import org.luxoft.tutor.maze.domain.Room;
-import org.luxoft.tutor.maze.domain.Wall;
+import org.luxoft.tutor.maze.api.Maze;
+import org.luxoft.tutor.maze.api.Room;
+import org.luxoft.tutor.maze.domain.DoorImpl;
+import org.luxoft.tutor.maze.domain.MazeImpl;
+import org.luxoft.tutor.maze.domain.WallImpl;
 
 public class TestMaze {
 
@@ -18,21 +20,21 @@ public class TestMaze {
         game = new Game() {
 
             public Maze createMaze() {
-                final Maze maze = new Maze();
+                final Maze maze = new MazeImpl();
 
                 final Room room1 = maze.makeRoom(1);
                 final Room room2 = maze.makeRoom(2);
 
-                final Door door = new Door(room1, room2);
+                final Door door = new DoorImpl(room1, room2);
 
-                room1.setSide(Room.NORTH, new Wall());
+                room1.setSide(Room.NORTH, new WallImpl());
                 room1.setSide(Room.EAST, door);
-                room1.setSide(Room.SOUTH, new Wall());
-                room1.setSide(Room.WEST, new Wall());
+                room1.setSide(Room.SOUTH, new WallImpl());
+                room1.setSide(Room.WEST, new WallImpl());
 
-                room2.setSide(Room.NORTH, new Wall());
-                room2.setSide(Room.EAST, new Wall());
-                room2.setSide(Room.SOUTH, new Wall());
+                room2.setSide(Room.NORTH, new WallImpl());
+                room2.setSide(Room.EAST, new WallImpl());
+                room2.setSide(Room.SOUTH, new WallImpl());
                 room2.setSide(Room.WEST, door);
                 return maze;
             }

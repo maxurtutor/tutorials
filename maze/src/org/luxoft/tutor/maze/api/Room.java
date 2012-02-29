@@ -32,4 +32,6 @@ public abstract class Room extends MapSite {
     public void setSide(int side, MapSite site) {
         sites[side] = site;
     }
+
+    public abstract void draw();
 }

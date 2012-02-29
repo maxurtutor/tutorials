@@ -13,4 +13,8 @@ public class RoomImpl extends Room {
 		// TODO Auto-generated method stub
 	}
 
+    @Override
+    public void draw() {
+        // TODO Auto-generated method stub
+    }
 }

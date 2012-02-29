@@ -3,13 +3,26 @@ package org.luxoft.tutor.maze;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.luxoft.tutor.maze.api.Door;
 import org.luxoft.tutor.maze.api.Game;
 import org.luxoft.tutor.maze.api.Maze;
 import org.luxoft.tutor.maze.api.Room;
 import org.luxoft.tutor.maze.domain.MazeBuilderImpl;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
+import static org.mockito.Matchers.anyObject;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.verify;
+
+@RunWith(MockitoJUnitRunner.class)
 public class TestMaze {
+
+
+    @Mock
+    private GraphicsEngine graphicsEngine;
+
 
     @Before
     public void setUp() {
@@ -35,6 +48,14 @@ public class TestMaze {
         final Room r2 = maze.romNo(2);
         final Door d = (Door) r2.getSide(Room.WEST);
         Assert.assertEquals(r1, d.otherSideFrom(r2));
+    }
+
+    @Test
+    public void testMazeDraw() throws Exception {
+        final Maze maze = Game.getInstance().createMaze();
+        final Room r1 = maze.romNo(1);
+        r1.draw();
+        verify(graphicsEngine).drawImage((Rectangle) anyObject(), eq("magicDoor.jpg"));
     }
 
 

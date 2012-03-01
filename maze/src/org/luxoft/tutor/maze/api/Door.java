@@ -28,6 +28,10 @@ public abstract class Door extends MapSite {
         this.open = open;
     }
 
+    public String getType() {
+        return "Door";
+    }
+
     public Cell otherSideFrom(final Cell room) {
         assert (null != room);
         if (cell1.equals(room)) {

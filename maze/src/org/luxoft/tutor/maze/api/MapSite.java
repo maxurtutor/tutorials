@@ -17,7 +17,7 @@ public abstract class MapSite implements Cloneable {
         mapSiteImpl.draw(getType(), rectangle);
     }
 
-    protected String getType() {
+    public String getType() {
         return "unknown";
     }
 }

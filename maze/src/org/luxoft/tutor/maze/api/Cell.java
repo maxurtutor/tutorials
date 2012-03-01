@@ -31,8 +31,13 @@ public abstract class Cell extends MapSite {
         return number;
     }
 
-    public MapSite getSide(final Side side) {
-        return sites.get(side);
+    @SuppressWarnings("unchecked")
+    public <T extends MapSite> T getSide(final Side side) {
+        try {
+            return (T) sites.get(side);
+        } catch (ClassCastException e) {
+            throw new AssertionError(e);
+        }
     }
 
     public void setSide(final Side side, final MapSite site) {

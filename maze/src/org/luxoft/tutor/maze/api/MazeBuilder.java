@@ -2,11 +2,6 @@ package org.luxoft.tutor.maze.api;
 
 import org.luxoft.tutor.maze.domain.MazeImpl;
 
-import static org.luxoft.tutor.maze.api.Room.EAST;
-import static org.luxoft.tutor.maze.api.Room.NORTH;
-import static org.luxoft.tutor.maze.api.Room.SOUTH;
-import static org.luxoft.tutor.maze.api.Room.WEST;
-
 /**
  * @author Maxim Yunusov
  * @version 1.0
@@ -28,37 +23,21 @@ public abstract class MazeBuilder {
         return this;
     }
 
-    public MazeBuilder addRoom(int room1, int room2, int side) {
+    public MazeBuilder addRoom(int room1, int room2, Side side) {
         getRoom(room1).setSide(side, getRoom(room2));
-        getRoom(room2).setSide(oppositeSide(side), getRoom(room1));
+        getRoom(room2).setSide(side.oppositeSide(), getRoom(room1));
         return this;
     }
 
-    public MazeBuilder addDoor(final String id, int room1, int room2, int side) {
+    public MazeBuilder addDoor(final String id, int room1, int room2, Side side) {
         final Door door = factory.makeDoor(id, getRoom(room1), getRoom(room2));
         getRoom(room1).setSide(side, door);
-        getRoom(room2).setSide(oppositeSide(side), door);
+        getRoom(room2).setSide(side.oppositeSide(), door);
         return this;
     }
 
     public Maze build() {
         return maze;
-    }
-
-    private int oppositeSide(int side) {
-        switch (side) {
-            case EAST:
-                return WEST;
-            case NORTH:
-                return SOUTH;
-            case SOUTH:
-                return NORTH;
-            case WEST:
-                return EAST;
-            default:
-                assert false : "Unknown side";
-                return -1;
-        }
     }
 
     private Room getRoom(int room) {
@@ -68,10 +47,9 @@ public abstract class MazeBuilder {
 
     private Room makeRoom(int room) {
         final Room result = maze.makeRoom(room);
-        result.setSide(EAST, factory.makeWall());
-        result.setSide(NORTH, factory.makeWall());
-        result.setSide(SOUTH, factory.makeWall());
-        result.setSide(WEST, factory.makeWall());
+        for (Side value : Side.values()) {
+            result.setSide(value, factory.makeWall());
+        }
         return result;
     }
 

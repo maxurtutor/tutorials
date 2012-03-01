@@ -10,16 +10,16 @@ import java.util.Map;
  */
 public abstract class MapSiteFactory {
 
-    private final Map<String, MapSite> prototypes = new HashMap<String, MapSite>();
+    private final Map<String, MapSite> sites = new HashMap<String, MapSite>();
 
     public abstract void init();
 
     protected void persist(final String id, final MapSite prototype) {
-        prototypes.put(id, prototype);
+        sites.put(id, prototype);
     }
 
     public Door makeDoor(final String id, final Room room1, final Room room2) {
-        final MapSite prototype = prototypes.get(id);
+        final MapSite prototype = sites.get(id);
         assert (prototype != null && prototype instanceof Door);
         try {
             final Door result = (Door) prototype.clone();
@@ -32,10 +32,10 @@ public abstract class MapSiteFactory {
     }
 
     public Wall makeWall() {
-        final MapSite prototype = prototypes.get("wall");
-        assert (prototype != null && prototype instanceof Wall);
+        final MapSite site = sites.get("wall");
+        assert (site != null && site instanceof Wall);
         try {
-            return (Wall) prototype.clone();
+            return (Wall) site.clone();
         } catch (CloneNotSupportedException ignore) {
             assert false;
             return null;

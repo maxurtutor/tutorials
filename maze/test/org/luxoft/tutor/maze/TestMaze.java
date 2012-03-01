@@ -12,6 +12,7 @@ import org.luxoft.tutor.maze.api.Maze;
 import org.luxoft.tutor.maze.api.Rectangle;
 import org.luxoft.tutor.maze.api.Registrar;
 import org.luxoft.tutor.maze.api.Side;
+import org.luxoft.tutor.maze.api.Wall;
 import org.luxoft.tutor.maze.domain.MazeBuilderImpl;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -55,7 +56,7 @@ public class TestMaze {
         final Maze maze = Game.getInstance().createMaze();
         final Cell r1 = maze.romNo(1);
         final Cell r2 = maze.romNo(2);
-        final Door d = (Door) r2.getSide(Side.WEST);
+        final Door d = r2.getSide(Side.WEST);
         Assert.assertEquals(r1, d.otherSideFrom(r2));
     }
 
@@ -64,6 +65,15 @@ public class TestMaze {
         final Maze maze = Game.getInstance().createMaze();
         maze.draw();
         verify(graphicsEngine).drawImage((Rectangle) anyObject(), eq("magicDoor.jpg"));
+    }
+
+    @Test
+    public void testWallAsFlyweight() throws Exception {
+        final Maze maze = Game.getInstance().createMaze();
+        final Cell r1 = maze.romNo(1);
+        final Wall w1 = r1.getSide(Side.SOUTH);
+        final Wall w2 = r1.getSide(Side.WEST);
+        Assert.assertSame(w1, w2);
     }
 
 

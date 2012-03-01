@@ -1,6 +1,8 @@
 package org.luxoft.tutor.maze.domain;
 
+import org.luxoft.tutor.maze.Rectangle;
 import org.luxoft.tutor.maze.api.Room;
+import org.luxoft.tutor.maze.api.Side;
 
 public class RoomImpl extends Room {
 
@@ -15,6 +17,13 @@ public class RoomImpl extends Room {
 
     @Override
     public void draw() {
+        for (Side value : Side.values()) {
+            getSide(value).draw(getRectangle(value));
+        }
+    }
+
+    private Rectangle getRectangle(final Side value) {
         // TODO Auto-generated method stub
+        return null;
     }
 }

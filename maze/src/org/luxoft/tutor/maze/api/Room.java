@@ -1,5 +1,8 @@
 package org.luxoft.tutor.maze.api;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author Maxim Yunusov
  * @version 1.0
@@ -7,14 +10,9 @@ package org.luxoft.tutor.maze.api;
  */
 public abstract class Room extends MapSite {
 
-    static final public int NORTH = 0;
-    static final public int SOUTH = 1;
-    static final public int EAST = 2;
-    static final public int WEST = 3;
-
     private final Integer roomNumber;
 
-    private MapSite[] sites = new MapSite[4];
+    private Map<Side, MapSite> sites = new HashMap<Side, MapSite>(4);
 
     protected Room(final Integer roomNumber) {
         assert(roomNumber != null);
@@ -25,12 +23,12 @@ public abstract class Room extends MapSite {
         return roomNumber;
     }
 
-    public MapSite getSide(int side) {
-        return sites[side];
+    public MapSite getSide(final Side side) {
+        return sites.get(side);
     }
 
-    public void setSide(int side, MapSite site) {
-        sites[side] = site;
+    public void setSide(final Side side, final MapSite site) {
+        sites.put(side, site);
     }
 
     public abstract void draw();

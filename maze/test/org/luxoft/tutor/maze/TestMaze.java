@@ -7,7 +7,9 @@ import org.junit.runner.RunWith;
 import org.luxoft.tutor.maze.api.Door;
 import org.luxoft.tutor.maze.api.Game;
 import org.luxoft.tutor.maze.api.Maze;
+import org.luxoft.tutor.maze.api.Registrar;
 import org.luxoft.tutor.maze.api.Room;
+import org.luxoft.tutor.maze.api.Side;
 import org.luxoft.tutor.maze.domain.MazeBuilderImpl;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -19,10 +21,8 @@ import static org.mockito.Mockito.verify;
 @RunWith(MockitoJUnitRunner.class)
 public class TestMaze {
 
-
     @Mock
     private GraphicsEngine graphicsEngine;
-
 
     @Before
     public void setUp() {
@@ -32,12 +32,13 @@ public class TestMaze {
                 return new MazeBuilderImpl()
                         .addRoom(1)
                         .addRoom(2)
-                        .addDoor("door", 1, 2, Room.EAST)
+                        .addDoor("door", 1, 2, Side.EAST)
                         .addRoom(3)
-                        .addDoor("magicDoor", 1, 3, Room.NORTH)
+                        .addDoor("magicDoor", 1, 3, Side.NORTH)
                         .build();
             }
         };
+        Registrar.getInstance().persist("GraphicsEngine", graphicsEngine);
         Game.setInstance(game);
     }
 
@@ -46,7 +47,7 @@ public class TestMaze {
         final Maze maze = Game.getInstance().createMaze();
         final Room r1 = maze.romNo(1);
         final Room r2 = maze.romNo(2);
-        final Door d = (Door) r2.getSide(Room.WEST);
+        final Door d = (Door) r2.getSide(Side.WEST);
         Assert.assertEquals(r1, d.otherSideFrom(r2));
     }
 

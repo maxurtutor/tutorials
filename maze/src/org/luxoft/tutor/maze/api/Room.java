@@ -31,5 +31,14 @@ public abstract class Room extends MapSite {
         sites.put(side, site);
     }
 
-    public abstract void draw();
+    public void draw() {
+        for (Side value : Side.values()) {
+            getSide(value).draw(getRectangle(value));
+        }
+    }
+
+    private Rectangle getRectangle(final Side value) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

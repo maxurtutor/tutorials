@@ -1,9 +1,6 @@
 package org.luxoft.tutor.maze.domain;
 
-import org.luxoft.tutor.maze.api.GraphicsEngine;
-import org.luxoft.tutor.maze.api.Rectangle;
 import org.luxoft.tutor.maze.api.MapSiteFactory;
-import org.luxoft.tutor.maze.api.Registrar;
 
 /**
  * @author Maxim Yunusov
@@ -22,11 +19,11 @@ public class MapSiteFactoryImpl extends MapSiteFactory {
     public void init() {
         persist("door", new DoorImpl());
         persist("magicDoor", new DoorImpl() {
-            @Override
-            public void draw(Rectangle rectangle) {
-                GraphicsEngine graphicsEngine = Registrar.getInstance().get("GraphicsEngine");
-                graphicsEngine.drawImage(rectangle, "magicDoor.jpg");
+
+            protected String getType() {
+                return "magicDoor";
             }
+
         });
         persist("wall", new WallImpl());
     }

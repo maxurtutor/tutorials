@@ -4,13 +4,13 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.luxoft.tutor.maze.api.Cell;
 import org.luxoft.tutor.maze.api.Door;
 import org.luxoft.tutor.maze.api.Game;
 import org.luxoft.tutor.maze.api.GraphicsEngine;
 import org.luxoft.tutor.maze.api.Maze;
 import org.luxoft.tutor.maze.api.Rectangle;
 import org.luxoft.tutor.maze.api.Registrar;
-import org.luxoft.tutor.maze.api.Room;
 import org.luxoft.tutor.maze.api.Side;
 import org.luxoft.tutor.maze.domain.MazeBuilderImpl;
 import org.mockito.Mock;
@@ -31,11 +31,17 @@ public class TestMaze {
         final Game game = new Game() {
 
             public Maze createMaze() {
+                final Maze maze
+                        = new MazeBuilderImpl()
+                        .addRoom(11)
+                        .addRoom(12)
+                        .addDoor("door", 1, 2, Side.EAST)
+                        .build();
                 return new MazeBuilderImpl()
                         .addRoom(1)
                         .addRoom(2)
                         .addDoor("door", 1, 2, Side.EAST)
-                        .addRoom(3)
+                        .addMaze(3, maze)
                         .addDoor("magicDoor", 1, 3, Side.NORTH)
                         .build();
             }
@@ -47,8 +53,8 @@ public class TestMaze {
     @Test
     public void testMazeBuild() throws Exception {
         final Maze maze = Game.getInstance().createMaze();
-        final Room r1 = maze.romNo(1);
-        final Room r2 = maze.romNo(2);
+        final Cell r1 = maze.romNo(1);
+        final Cell r2 = maze.romNo(2);
         final Door d = (Door) r2.getSide(Side.WEST);
         Assert.assertEquals(r1, d.otherSideFrom(r2));
     }
@@ -56,8 +62,7 @@ public class TestMaze {
     @Test
     public void testMazeDraw() throws Exception {
         final Maze maze = Game.getInstance().createMaze();
-        final Room r1 = maze.romNo(1);
-        r1.draw();
+        maze.draw();
         verify(graphicsEngine).drawImage((Rectangle) anyObject(), eq("magicDoor.jpg"));
     }
 

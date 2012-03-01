@@ -1,28 +1,41 @@
 package org.luxoft.tutor.maze.api;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 /**
  * @author Maxim Yunusov
  * @version 1.0
  * @since <pre>2/28/12</pre>
  */
-public abstract class Maze {
+public abstract class Maze extends Cell {
 
-    private Map<Integer, Room> rooms = new HashMap<Integer, Room>();
+    private SortedMap<Integer, Cell> cells = new TreeMap<Integer, Cell>();
+
+    public Maze(final Integer number) {
+        super(number);
+    }
 
     public Maze() {
         super();
     }
 
-    public Room romNo(int number) {
-        return rooms.get(number);
+    public Cell romNo(int number) {
+        return cells.get(number);
     }
 
-    protected void addRoom(final Room room) {
-        rooms.put(room.getRoomNumber(), room);
+    protected void addCell(final Cell cell) {
+        cells.put(cell.getNumber(), cell);
     }
 
     public abstract Room makeRoom(int number);
+
+    @Override
+    public void draw() {
+        cells.get(cells.firstKey()).draw();
+    }
+
+    public void setNumber(int number) {
+        super.setNumber(number);
+    }
 }

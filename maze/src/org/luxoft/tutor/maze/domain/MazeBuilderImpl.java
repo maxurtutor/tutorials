@@ -8,7 +8,7 @@ import org.luxoft.tutor.maze.api.MazeBuilder;
  * @version 1.0
  * @since <pre>2/28/12</pre>
  */
-public class MazeBuilderImpl extends MazeBuilder {
+public class MazeBuilderImpl extends MazeBuilder<MazeImpl> {
 
     @Override
     protected MapSiteFactory makeFactory() {

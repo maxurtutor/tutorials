@@ -9,15 +9,15 @@ public abstract class Door extends MapSite {
 
     private boolean open = false;
 
-    private Room room1;
+    private Cell cell1;
 
-    private Room room2;
+    private Cell cell2;
 
     protected Door() {
     }
 
-    protected Door(final Room room1, final Room room2) {
-        init(room1, room2);
+    protected Door(final Cell cell1, final Cell cell2) {
+        init(cell1, cell2);
     }
 
     public boolean isOpen() {
@@ -28,20 +28,20 @@ public abstract class Door extends MapSite {
         this.open = open;
     }
 
-    public Room otherSideFrom(final Room room) {
+    public Cell otherSideFrom(final Cell room) {
         assert (null != room);
-        if (room1.equals(room)) {
-            return room2;
-        } else if (room2.equals(room)) {
-            return room1;
+        if (cell1.equals(room)) {
+            return cell2;
+        } else if (cell2.equals(room)) {
+            return cell1;
         } else {
             return null;
         }
     }
 
-    public void init(final Room room1, final Room room2) {
-        assert (null != room1 && null != room2);
-        this.room1 = room1;
-        this.room2 = room2;
+    public void init(final Cell cell1, final Cell room2) {
+        assert (null != cell1 && null != room2);
+        this.cell1 = cell1;
+        this.cell2 = room2;
     }
 }

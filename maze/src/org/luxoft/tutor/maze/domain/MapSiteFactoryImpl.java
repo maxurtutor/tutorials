@@ -1,7 +1,7 @@
 package org.luxoft.tutor.maze.domain;
 
-import org.luxoft.tutor.maze.GraphicsEngine;
-import org.luxoft.tutor.maze.Rectangle;
+import org.luxoft.tutor.maze.api.GraphicsEngine;
+import org.luxoft.tutor.maze.api.Rectangle;
 import org.luxoft.tutor.maze.api.MapSiteFactory;
 import org.luxoft.tutor.maze.api.Registrar;
 

@@ -1,6 +1,6 @@
 package org.luxoft.tutor.maze.domain;
 
-import org.luxoft.tutor.maze.Rectangle;
+import org.luxoft.tutor.maze.api.Rectangle;
 import org.luxoft.tutor.maze.api.Door;
 import org.luxoft.tutor.maze.api.Room;
 

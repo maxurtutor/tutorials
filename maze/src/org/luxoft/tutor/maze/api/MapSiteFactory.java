@@ -34,11 +34,6 @@ public abstract class MapSiteFactory {
     public Wall makeWall() {
         final MapSite site = sites.get("wall");
         assert (site != null && site instanceof Wall);
-        try {
-            return (Wall) site.clone();
-        } catch (CloneNotSupportedException ignore) {
-            assert false;
-            return null;
-        }
+        return (Wall) site;
     }
 }

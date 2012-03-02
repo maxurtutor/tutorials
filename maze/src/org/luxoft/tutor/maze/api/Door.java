@@ -43,9 +43,9 @@ public abstract class Door extends MapSite {
         }
     }
 
-    public void init(final Cell cell1, final Cell room2) {
-        assert (null != cell1 && null != room2);
+    public void init(final Cell cell1, final Cell cell2) {
+        assert (null != cell1 && null != cell2);
         this.cell1 = cell1;
-        this.cell2 = room2;
+        this.cell2 = cell2;
     }
 }

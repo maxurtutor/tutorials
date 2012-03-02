@@ -1,6 +1,7 @@
 package org.luxoft.tutor.maze.domain;
 
 import org.luxoft.tutor.maze.api.MapSiteFactory;
+import org.luxoft.tutor.maze.api.MazeProxy;
 
 /**
  * @author Maxim Yunusov
@@ -20,6 +21,7 @@ public class MapSiteFactoryImpl extends MapSiteFactory {
         persist("door", new DoorImpl());
         persist("magicDoor", new MagicDecorator(new DoorImpl()));
         persist("wall", new WallImpl());
+        persist("maze", new MazeProxy());
     }
 
     public static MapSiteFactory getInstance() {

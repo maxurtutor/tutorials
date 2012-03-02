@@ -9,12 +9,15 @@ import org.luxoft.tutor.maze.api.Door;
 import org.luxoft.tutor.maze.api.Game;
 import org.luxoft.tutor.maze.api.GraphicsEngine;
 import org.luxoft.tutor.maze.api.Maze;
+import org.luxoft.tutor.maze.api.MazeLoader;
 import org.luxoft.tutor.maze.api.Rectangle;
 import org.luxoft.tutor.maze.api.Registrar;
 import org.luxoft.tutor.maze.api.Side;
 import org.luxoft.tutor.maze.api.Wall;
-import org.luxoft.tutor.maze.domain.MazeBuilderImpl;
+import org.luxoft.tutor.maze.domain.MapSiteImageImpl;
+import org.luxoft.tutor.maze.domain.MazeLoaderImpl;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.mockito.Matchers.anyObject;
@@ -27,27 +30,21 @@ public class TestMaze {
     @Mock
     private GraphicsEngine graphicsEngine;
 
+    @Spy
+    private MazeLoaderImpl loader = new MazeLoaderImpl();
+
     @Before
     public void setUp() {
         final Game game = new Game() {
 
             public Maze createMaze() {
-                final Maze maze
-                        = new MazeBuilderImpl()
-                        .addRoom(11)
-                        .addRoom(12)
-                        .addDoor("door", 1, 2, Side.EAST)
-                        .build();
-                return new MazeBuilderImpl()
-                        .addRoom(1)
-                        .addRoom(2)
-                        .addDoor("door", 1, 2, Side.EAST)
-                        .addMaze(3, maze)
-                        .addDoor("magicDoor", 1, 3, Side.NORTH)
-                        .build();
+                final MazeLoader loader = Registrar.getInstance().get("MazeLoader");
+                return loader.load(0);
             }
         };
         Registrar.getInstance().persist("GraphicsEngine", graphicsEngine);
+        Registrar.getInstance().persist("MapSiteImpl", new MapSiteImageImpl());
+        Registrar.getInstance().persist("MazeLoader", loader);
         Game.setInstance(game);
     }
 
@@ -76,5 +73,12 @@ public class TestMaze {
         Assert.assertSame(w1, w2);
     }
 
+    @Test
+    public void testMazeAsProxy() throws Exception {
+        final Maze maze = Game.getInstance().createMaze();
+        verify(loader).load(0);
+        maze.romNo(3).enter();
+        verify(loader).load(3);
+    }
 
 }

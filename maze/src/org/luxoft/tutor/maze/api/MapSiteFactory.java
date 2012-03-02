@@ -18,7 +18,7 @@ public abstract class MapSiteFactory {
         sites.put(id, prototype);
     }
 
-    public Door makeDoor(final String id, final Room room1, final Room room2) {
+    public Door makeDoor(final String id, final Cell room1, final Cell room2) {
         final MapSite prototype = sites.get(id);
         assert (prototype != null && prototype instanceof Door);
         try {
@@ -35,5 +35,13 @@ public abstract class MapSiteFactory {
         final MapSite site = sites.get("wall");
         assert (site != null && site instanceof Wall);
         return (Wall) site;
+    }
+
+    public Maze makeMaze(int id) {
+        final MapSite site = sites.get("maze");
+        assert (site != null && site instanceof Maze);
+        final Maze maze = (Maze) site;
+        maze.setNumber(id);
+        return maze;
     }
 }

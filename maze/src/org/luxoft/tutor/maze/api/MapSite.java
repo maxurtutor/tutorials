@@ -1,10 +1,8 @@
 package org.luxoft.tutor.maze.api;
 
-import org.luxoft.tutor.maze.domain.MapSiteImageImpl;
-
 public abstract class MapSite implements Cloneable {
 
-    private final MapSiteImpl mapSiteImpl = new MapSiteImageImpl();
+    private final MapSiteImpl mapSiteImpl = Registrar.getInstance().get("MapSiteImpl");
 
     public abstract void enter();
 

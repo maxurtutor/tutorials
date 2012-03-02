@@ -27,18 +27,19 @@ public abstract class MazeBuilder <T extends Maze> {
         return this;
     }
 
-    public MazeBuilder addMaze(int id, final Maze maze) {
+    public MazeBuilder addMaze(int id) {
         final Cell result = maze.romNo(id);
         assert (result == null);
-        maze.setNumber(id);
-        maze.addCell(maze);
+        maze.addCell(factory.makeMaze(id));
         return this;
     }
 
     public MazeBuilder addDoor(final String id, int room1, int room2, final Side side) {
-        final Door door = factory.makeDoor(id, getRoom(room1), getRoom(room2));
-        getRoom(room1).setSide(side, door);
-        getRoom(room2).setSide(side.oppositeSide(), door);
+        final Cell cell1 = maze.romNo(room1);
+        final Cell cell2 = maze.romNo(room2);
+        final Door door = factory.makeDoor(id, cell1, cell2);
+        cell1.setSide(side, door);
+        cell2.setSide(side.oppositeSide(), door);
         return this;
     }
 

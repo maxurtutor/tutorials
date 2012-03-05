@@ -23,7 +23,7 @@ public abstract class MazeBuilder <T extends Maze> {
 
     public MazeBuilder addRoom(int room1, int room2, final Side side) {
         getRoom(room1).setSide(side, getRoom(room2));
-        getRoom(room2).setSide(side.oppositeSide(), getRoom(room1));
+        getRoom(room2).setSide(side.opposite(), getRoom(room1));
         return this;
     }
 
@@ -39,7 +39,7 @@ public abstract class MazeBuilder <T extends Maze> {
         final Cell cell2 = maze.romNo(room2);
         final Door door = factory.makeDoor(id, cell1, cell2);
         cell1.setSide(side, door);
-        cell2.setSide(side.oppositeSide(), door);
+        cell2.setSide(side.opposite(), door);
         return this;
     }
 

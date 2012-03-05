@@ -13,13 +13,6 @@ public abstract class Door extends MapSite {
 
     private Cell cell2;
 
-    protected Door() {
-    }
-
-    protected Door(final Cell cell1, final Cell cell2) {
-        init(cell1, cell2);
-    }
-
     public boolean isOpen() {
         return open;
     }

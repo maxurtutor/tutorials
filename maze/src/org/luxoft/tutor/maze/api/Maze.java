@@ -20,7 +20,11 @@ public abstract class Maze {
         return rooms.get(number);
     }
 
-    public void addRoom(final Room room) {
+    public abstract Room makeRoom(int number);
+
+    protected void addRoom(final Room room) {
         rooms.put(room.getRoomNumber(), room);
     }
+
+
 }

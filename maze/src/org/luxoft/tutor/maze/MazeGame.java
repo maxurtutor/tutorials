@@ -11,28 +11,45 @@ import org.luxoft.tutor.maze.impl.WallImpl;
 
 public final class MazeGame {
 
-     public final Maze createMaze() {
+    private Maze maze;
 
-        final Maze maze = new MazeImpl();
+    public final Maze createMaze() {
 
-        final Room r1 = new RoomImpl(1);
-        maze.addRoom(r1);
+        maze = makeMaze();
 
-        final Room r2 = new RoomImpl(2);
-        maze.addRoom(r2);
+        final Room r1 = makeRoom(1);
+        final Room r2 = makeRoom(2);
 
-        final Door d = new DoorImpl(r1, r2);
+        final Door d = makeDoor(r1, r2);
 
-        r1.setSide(Direction.NORTH, new WallImpl());
+        r1.setSide(Direction.NORTH, makeWall());
         r1.setSide(Direction.EAST, d);
-        r1.setSide(Direction.SOUTH, new WallImpl());
-        r1.setSide(Direction.WEST, new WallImpl());
+        r1.setSide(Direction.SOUTH, makeWall());
+        r1.setSide(Direction.WEST, makeWall());
 
-        r2.setSide(Direction.NORTH, new WallImpl());
-        r2.setSide(Direction.EAST, new WallImpl());
-        r2.setSide(Direction.SOUTH, new WallImpl());
+        r2.setSide(Direction.NORTH, makeWall());
+        r2.setSide(Direction.EAST, makeWall());
+        r2.setSide(Direction.SOUTH, makeWall());
         r2.setSide(Direction.WEST, d);
 
         return maze;
+    }
+
+    private MazeImpl makeMaze() {
+        return new MazeImpl();
+    }
+
+    private WallImpl makeWall() {
+        return new WallImpl();
+    }
+
+    private DoorImpl makeDoor(final Room r1, final Room r2) {
+        return new DoorImpl(r1, r2);
+    }
+
+    private RoomImpl makeRoom(int number) {
+        final RoomImpl room = new RoomImpl(number);
+        maze.addRoom(room);
+        return room;
     }
 }

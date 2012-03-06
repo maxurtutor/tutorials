@@ -1,4 +1,4 @@
-package org.luxoft.tutor.maze;
+package org.luxoft.tutor.maze.api;
 
 public abstract class MapSite {
 

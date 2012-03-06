@@ -2,6 +2,11 @@ package org.luxoft.tutor.maze;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.luxoft.tutor.maze.api.Direction;
+import org.luxoft.tutor.maze.api.Door;
+import org.luxoft.tutor.maze.api.Maze;
+import org.luxoft.tutor.maze.impl.DoorImpl;
+import org.luxoft.tutor.maze.impl.WallImpl;
 
 import static org.junit.Assert.*;
 
@@ -28,13 +33,13 @@ public class TestMaze {
 
     @Test
     public void shouldBeBuildWall() throws Exception {
-        assertTrue(maze.romNo(1).getSide(Direction.WEST) instanceof Wall);
+        assertTrue(maze.romNo(1).getSide(Direction.WEST) instanceof WallImpl);
     }
 
 
     @Test
     public void shouldBeBuildDoor() throws Exception {
-        assertTrue(maze.romNo(1).getSide(Direction.EAST) instanceof Door);
+        assertTrue(maze.romNo(1).getSide(Direction.EAST) instanceof DoorImpl);
     }
 
     @Test

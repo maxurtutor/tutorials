@@ -5,7 +5,7 @@ package org.luxoft.tutor.maze.api;
  * @version 1.0
  * @since <pre>3/1/12</pre>
  */
-public abstract class MazeLoader {
+public abstract class MazeDirector {
 
     public abstract Maze load(int id);
 

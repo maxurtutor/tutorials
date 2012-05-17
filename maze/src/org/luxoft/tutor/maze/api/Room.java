@@ -7,19 +7,19 @@ package org.luxoft.tutor.maze.api;
  */
 public abstract class Room extends Cell {
 
-    protected Room(final Integer roomNumber) {
-        super(roomNumber);
-    }
-
     @Override
     public void draw() {
-        for (Side value : Side.values()) {
-            getSide(value).draw(getRectangle(value));
+        for (Side side : Side.values()) {
+            getSide(side).draw(getRectangle(side));
         }
     }
 
     private Rectangle getRectangle(final Side value) {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    public void move(final Player player, final Side side) {
+        getSide(side).enter(player);
     }
 }

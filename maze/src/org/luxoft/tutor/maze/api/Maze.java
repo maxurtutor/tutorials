@@ -8,17 +8,9 @@ import java.util.TreeMap;
  * @version 1.0
  * @since <pre>2/28/12</pre>
  */
-public abstract class Maze extends Cell {
+public class Maze extends Cell {
 
     private SortedMap<Integer, Cell> cells = new TreeMap<Integer, Cell>();
-
-    public Maze(final Integer number) {
-        super(number);
-    }
-
-    public Maze() {
-        super();
-    }
 
     public Cell romNo(int number) {
         return cells.get(number);
@@ -28,14 +20,33 @@ public abstract class Maze extends Cell {
         cells.put(cell.getNumber(), cell);
     }
 
-    public abstract Room makeRoom(int number);
-
     @Override
     public void draw() {
         cells.get(cells.firstKey()).draw();
     }
 
+    @Override
+    public boolean isRoom() {
+        return false;
+    }
+
+    @Override
+    public void enter(final Player player) {
+        getFirstRoom().enter(player);
+    }
+
+
     public void setNumber(int number) {
         super.setNumber(number);
     }
+
+    public Room getFirstRoom() {
+        for (Cell cell : cells.values()) {
+            if (cell.isRoom()) {
+                return (Room) cell;
+            }
+        }
+        return null;
+    }
+
 }

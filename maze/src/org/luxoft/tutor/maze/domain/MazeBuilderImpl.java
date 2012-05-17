@@ -1,6 +1,7 @@
 package org.luxoft.tutor.maze.domain;
 
 import org.luxoft.tutor.maze.api.MapSiteFactory;
+import org.luxoft.tutor.maze.api.Maze;
 import org.luxoft.tutor.maze.api.MazeBuilder;
 
 /**
@@ -8,7 +9,7 @@ import org.luxoft.tutor.maze.api.MazeBuilder;
  * @version 1.0
  * @since <pre>2/28/12</pre>
  */
-public class MazeBuilderImpl extends MazeBuilder<MazeImpl> {
+public class MazeBuilderImpl extends MazeBuilder<Maze> {
 
     @Override
     protected MapSiteFactory makeFactory() {
@@ -16,8 +17,8 @@ public class MazeBuilderImpl extends MazeBuilder<MazeImpl> {
     }
 
     @Override
-    protected MazeImpl makeMaze() {
-        return new MazeImpl();
+    protected Maze makeMaze() {
+        return new Maze();
     }
 
 }

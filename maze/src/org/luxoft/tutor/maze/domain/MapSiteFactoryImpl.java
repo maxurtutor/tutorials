@@ -18,9 +18,11 @@ public class MapSiteFactoryImpl extends MapSiteFactory {
 
     @Override
     public void init() {
+        persist("room", new RoomImpl());
         persist("door", new DoorImpl());
-        persist("magicDoor", new MagicDecorator(new DoorImpl()));
         persist("wall", new WallImpl());
+
+        persist("magicDoor", new MagicDecorator(new DoorImpl()));
         persist("maze", new MazeProxy());
     }
 

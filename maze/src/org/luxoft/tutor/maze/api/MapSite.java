@@ -4,8 +4,6 @@ public abstract class MapSite implements Cloneable {
 
     private final MapSiteImpl mapSiteImpl = Registrar.getInstance().get("MapSiteImpl");
 
-    public abstract void enter();
-
     @Override
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
@@ -18,4 +16,6 @@ public abstract class MapSite implements Cloneable {
     public String getType() {
         return "unknown";
     }
+
+    public abstract void enter(final Player player);
 }

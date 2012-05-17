@@ -1,7 +1,7 @@
 package org.luxoft.tutor.maze.service;
 
 import org.luxoft.tutor.maze.api.Game;
-import org.luxoft.tutor.maze.api.Maze;
+import org.luxoft.tutor.maze.api.Side;
 
 /**
  * @author Maxim Yunusov
@@ -10,8 +10,16 @@ import org.luxoft.tutor.maze.api.Maze;
  */
 public class MazeGameController {
 
+    private Game game;
+
     public void newGame() {
-        final Maze maze = Game.getInstance().createMaze();
+        game = Game.getInstance();
+        game.registerPlayer("x");
+        game.start();
+    }
+
+    public void move(String playerId, Side side) {
+        game.move(playerId, side);
     }
 
 }

@@ -2,6 +2,7 @@ package org.luxoft.tutor.maze.domain;
 
 import org.luxoft.tutor.maze.api.Door;
 import org.luxoft.tutor.maze.api.MapSite;
+import org.luxoft.tutor.maze.api.Player;
 
 /**
  * @author Maxim Yunusov
@@ -18,8 +19,10 @@ public class MagicDecorator extends Door {
     }
 
     @Override
-    public void enter() {
-        site.enter();
+    public void enter(final Player player) {
+        if (player.getHealth() < 50) {
+            site.enter(player);
+        }
     }
 
     @Override

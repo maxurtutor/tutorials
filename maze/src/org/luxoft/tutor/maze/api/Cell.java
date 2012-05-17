@@ -14,17 +14,8 @@ public abstract class Cell extends MapSite {
 
     private Map<Side, MapSite> sites = new HashMap<Side, MapSite>(4);
 
-    public Cell(final Integer number) {
-        assert(number != null);
-        this.number = number;
-    }
-
     protected void setNumber(int number) {
         this.number = number;
-    }
-
-    protected Cell() {
-        this.number = null;
     }
 
     public Integer getNumber() {
@@ -44,6 +35,14 @@ public abstract class Cell extends MapSite {
         sites.put(side, site);
     }
 
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        final Cell result = (Cell) super.clone();
+        result.sites = new HashMap<Side, MapSite>(4);
+        return result;
+    }
+
     public abstract void draw();
 
+    public abstract boolean isRoom();
 }

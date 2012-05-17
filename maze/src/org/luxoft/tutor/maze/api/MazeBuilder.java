@@ -16,49 +16,65 @@ public abstract class MazeBuilder <T extends Maze> {
         this.factory = makeFactory();
     }
 
-    public MazeBuilder addRoom(int room1) {
-        getRoom(room1);
+    public T build() {
+        return maze;
+    }
+
+    public MazeBuilder addRoom(final String type, int id) {
+        maze.addCell(makeRoom(type, id));
         return this;
     }
 
-    public MazeBuilder addRoom(int room1, int room2, final Side side) {
-        getRoom(room1).setSide(side, getRoom(room2));
-        getRoom(room2).setSide(side.opposite(), getRoom(room1));
-        return this;
-    }
-
-    public MazeBuilder addMaze(int id) {
-        final Cell result = maze.romNo(id);
+    public MazeBuilder addMaze(final String type, int id) {
+        final Cell result = this.maze.romNo(id);
         assert (result == null);
-        maze.addCell(factory.makeMaze(id));
+        final MapSite site = factory.getMapSite(type);
+        assert (site != null && site instanceof Maze);
+        final Maze cell = (Maze) site;
+        cell.setNumber(id);
+        this.maze.addCell(cell);
         return this;
     }
 
-    public MazeBuilder addDoor(final String id, int room1, int room2, final Side side) {
+    public MazeBuilder addDoor(final String type, int room1, final Side side, int room2) {
         final Cell cell1 = maze.romNo(room1);
         final Cell cell2 = maze.romNo(room2);
-        final Door door = factory.makeDoor(id, cell1, cell2);
+        final Door door = makeDoor(type, cell1, cell2);
         cell1.setSide(side, door);
         cell2.setSide(side.opposite(), door);
         return this;
     }
 
-    public T build() {
-        return maze;
+
+    public MazeBuilder bindRoom(int room1, final Side side, int room2) {
+        getRoom(room1).setSide(side, getRoom(room2));
+        getRoom(room2).setSide(side.opposite(), getRoom(room1));
+        return this;
+    }
+
+    public Door makeDoor(final String type, final Cell room1, final Cell room2) {
+        final MapSite site = factory.getMapSite(type);
+        assert (site != null && site instanceof Door);
+        final Door result = (Door) site;
+        result.init(room1, room2);
+        return result;
     }
 
     private Room getRoom(int room) {
-        final Cell result = maze.romNo(room);
-        assert (result == null || result instanceof Room);
-        return (result == null) ? makeRoom(room) : (Room) result;
+        final Cell site = maze.romNo(room);
+        assert (site != null && site instanceof Room);
+        return (Room) site;
     }
 
-    private Room makeRoom(int room) {
-        final Room result = maze.makeRoom(room);
+    private Room makeRoom(final String type, int id) {
+        final MapSite site = factory.getMapSite(type);
+        assert (site != null && site instanceof Room);
+        final Room cell = (Room) site;
+        cell.setNumber(id);
         for (Side value : Side.values()) {
-            result.setSide(value, factory.makeWall());
+            cell.setSide(value, factory.makeWall());
         }
-        return result;
+        return cell;
     }
 
     protected abstract MapSiteFactory makeFactory();

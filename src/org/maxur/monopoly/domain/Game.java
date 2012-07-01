@@ -1,5 +1,8 @@
 package org.maxur.monopoly.domain;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 /**
  * @author Maxim Yunusov
  * @version 1.0 01.07.12
@@ -7,9 +10,15 @@ package org.maxur.monopoly.domain;
 public class Game {
 
     private int playersNumber;
+    private ArrayList<Player> players;
 
     private Game(int playersNumber) {
         this.playersNumber = playersNumber;
+        players = new ArrayList<>(playersNumber);
+        for (int i = 0; i < playersNumber; i++) {
+            final Player player = new Player();
+            players.add(player);
+        }
     }
 
     public int getPlayersNumber() {
@@ -22,6 +31,18 @@ public class Game {
 
     public void play() {
         this.playersNumber = 1;
+    }
+
+    public Collection<Player> getPlayers() {
+        return players;
+    }
+
+    public Player getWinner() {
+        return players.get(0);
+    }
+
+    public Player getPlayer(int playerId) {
+        return players.get(playerId);
     }
 
     public static class GameBuilder {

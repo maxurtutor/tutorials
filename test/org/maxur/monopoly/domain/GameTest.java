@@ -1,18 +1,26 @@
 package org.maxur.monopoly.domain;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Collection;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.verify;
 
 /**
  * @author Maxim Yunusov
  * @version 1.0 01.07.12
  */
+@RunWith(MockitoJUnitRunner.class)
 public class GameTest {
+
+    @Mock
+    private Round round;
 
     @Test
     public void testMinPlayersNumberIs2() throws Exception {
@@ -68,14 +76,48 @@ public class GameTest {
         assertNotSame(game.getPlayer(0), game.getPlayer(1));
     }
 
-    // TODO WinnerHasMoney
     @Test
     public void testWinnerHasMoney() throws Exception {
         final Game game = Game.builder().setPlayersNumber(2).build();
+        game.play();
         Player winner = game.getWinner();
         assertTrue(0 < winner.getMoney());
     }
 
+    @Test
+    public void testLooserHasNotMoney() throws Exception {
+        final Game game = Game.builder().setPlayersNumber(2).build();
+        game.play();
+        Collection<Player> looser = game.getLoosers();
+        for (Player player : looser) {
+            assertTrue(0 == player.getMoney());
+        }
+    }
 
-    // TODO LooserHasNotMoney
+    @Test
+    public void testLoosersNumberIsPlayerNumberWithoutOne() throws Exception {
+        final Game game = Game.builder().setPlayersNumber(2).build();
+        game.play();
+        assertEquals(game.getPlayers().size() - 1, game.getLoosers().size());
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testGetWinnerThrowsExceptionWithoutPlay() throws Exception {
+        final Game game = Game.builder().setPlayersNumber(2).build();
+        game.getWinner();
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testGetLoosersThrowsExceptionWithoutPlay() throws Exception {
+        final Game game = Game.builder().setPlayersNumber(2).build();
+        game.getLoosers();
+    }
+
+    @Test
+    public void testGameRunningRound() throws Exception {
+        final Game game = Game.builder().setPlayersNumber(2).build();
+        game.play();
+        verify(round).run();
+    }
+
 }

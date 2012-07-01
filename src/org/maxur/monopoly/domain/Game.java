@@ -10,6 +10,7 @@ import java.util.Collection;
 public class Game {
 
     private int playersNumber;
+
     private ArrayList<Player> players;
 
     private Game(int playersNumber) {
@@ -30,6 +31,10 @@ public class Game {
     }
 
     public void play() {
+        players.get(0).setMoney(1);
+        for (int i = 1; i < players.size(); i++) {
+            players.get(i).setMoney(0);
+        }
         this.playersNumber = 1;
     }
 
@@ -38,11 +43,31 @@ public class Game {
     }
 
     public Player getWinner() {
+        if (!isGameTerminated()) {
+            throw new IllegalStateException();
+        }
         return players.get(0);
     }
 
     public Player getPlayer(int playerId) {
         return players.get(playerId);
+    }
+
+    public Collection<Player> getLoosers() {
+        if (!isGameTerminated()) {
+            throw new IllegalStateException();
+        }
+        Collection<Player> result = new ArrayList<>();
+        for (Player player : players) {
+          if (!player.hasMoney()) {
+               result.add(player);
+          }
+        }
+        return result;
+    }
+
+    public boolean isGameTerminated() {
+        return playersNumber == 1;
     }
 
     public static class GameBuilder {

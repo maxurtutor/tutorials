@@ -6,9 +6,17 @@ package org.maxur.monopoly.domain;
  */
 public class Player {
 
-
+    private int money;
 
     public int getMoney() {
-        return 0;
+        return this.money;
+    }
+
+    public boolean hasMoney() {
+        return this.money > 0;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
     }
 }

@@ -45,6 +45,7 @@
     </properties>
 
     <modules>
+        <module>gui-arch</module>
     </modules>
 
     <profiles>

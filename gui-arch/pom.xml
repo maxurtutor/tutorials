@@ -13,5 +13,13 @@
     <artifactId>gui-arch</artifactId>
     <version>0.1</version>
 
+    <dependencies>
+        <dependency>
+            <groupId>jgoodies</groupId>
+            <artifactId>forms</artifactId>
+            <version>1.0.5</version>
+        </dependency>
+    </dependencies>
+
     
 </project>

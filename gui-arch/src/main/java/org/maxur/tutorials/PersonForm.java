@@ -6,13 +6,15 @@ import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * @author Maxim Yunusov
  * @version 1.0
  * @since <pre>10/9/12</pre>
  */
-public class PersonForm {
+public class PersonForm implements Observer {
 
     private JPanel mainPanel;
     private JButton exitButton;
@@ -21,7 +23,11 @@ public class PersonForm {
     private JTextField fullNameField;
     private JTextField lastNameField;
 
-    public PersonForm() {
+    private final PersonModel model;
+
+    public PersonForm(final PersonModelSimpleImpl model) {
+
+        this.model = model;
 
         exitButton.addActionListener(new ActionListener() {
             @Override
@@ -33,54 +39,47 @@ public class PersonForm {
         firstNameField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                onChangeAnyName();
+                PersonForm.this.model.setFirstName(firstNameField.getText());
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                onChangeAnyName();
+                PersonForm.this.model.setFirstName(firstNameField.getText());
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                onChangeAnyName();
+                PersonForm.this.model.setFirstName(firstNameField.getText());
             }
         });
 
         lastNameField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                onChangeAnyName();
+                PersonForm.this.model.setLastName(lastNameField.getText());
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                onChangeAnyName();
+                PersonForm.this.model.setLastName(lastNameField.getText());
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                onChangeAnyName();
+                PersonForm.this.model.setLastName(lastNameField.getText());
             }
         });
 
     }
 
-    private void onChangeAnyName() {
-        final String fullName = firstNameField.getText() + " " + lastNameField.getText();
-        fullNameField.setForeground(check(fullName) ? Color.GREEN : Color.RED);
-        fullNameField.setText(fullName);
+    public JPanel getMainPanel() {
+        return mainPanel;
     }
 
-    private boolean check(final String fullName) {
-        return fullName.matches("^([A-Z][a-z]*(\\s))+[A-Z][a-z]*$");
-    }
-
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Registration Form");
-        frame.setContentPane(new PersonForm().mainPanel);
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
+    @Override
+    public void update(Observable o, Object arg) {
+        final PersonModel model = (PersonModel) o;
+        fullNameField.setForeground(model.check() ? Color.GREEN : Color.RED);
+        fullNameField.setText(model.getFullName());
     }
 }

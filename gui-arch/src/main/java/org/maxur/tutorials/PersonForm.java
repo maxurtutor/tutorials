@@ -1,11 +1,7 @@
 package org.maxur.tutorials;
 
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -25,51 +21,8 @@ public class PersonForm implements Observer {
 
     private final PersonModel model;
 
-    public PersonForm(final PersonModelSimpleImpl model) {
-
+    public PersonForm(final PersonModel model) {
         this.model = model;
-
-        exitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
-
-        firstNameField.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                PersonForm.this.model.setFirstName(firstNameField.getText());
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                PersonForm.this.model.setFirstName(firstNameField.getText());
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                PersonForm.this.model.setFirstName(firstNameField.getText());
-            }
-        });
-
-        lastNameField.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                PersonForm.this.model.setLastName(lastNameField.getText());
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                PersonForm.this.model.setLastName(lastNameField.getText());
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                PersonForm.this.model.setLastName(lastNameField.getText());
-            }
-        });
-
     }
 
     public JPanel getMainPanel() {
@@ -79,7 +32,28 @@ public class PersonForm implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         final PersonModel model = (PersonModel) o;
-        fullNameField.setForeground(model.check() ? Color.GREEN : Color.RED);
-        fullNameField.setText(model.getFullName());
+        getFullNameField().setForeground(model.check() ? Color.GREEN : Color.RED);
+        getFullNameField().setText(model.getFullName());
     }
+
+    public JButton getExitButton() {
+        return exitButton;
+    }
+
+    public JButton getSaveButton() {
+        return saveButton;
+    }
+
+    public JTextField getFirstNameField() {
+        return firstNameField;
+    }
+
+    public JTextField getFullNameField() {
+        return fullNameField;
+    }
+
+    public JTextField getLastNameField() {
+        return lastNameField;
+    }
+
 }

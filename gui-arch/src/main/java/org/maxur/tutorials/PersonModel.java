@@ -6,6 +6,7 @@ package org.maxur.tutorials;
  * @since <pre>10/10/12</pre>
  */
 public interface PersonModel {
+
     String getFirstName();
 
     void setFirstName(String firstName);

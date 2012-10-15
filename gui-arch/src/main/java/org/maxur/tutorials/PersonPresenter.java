@@ -2,63 +2,87 @@ package org.maxur.tutorials;
 
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class PersonController {
+/**
+ * @author Maxim Yunusov
+ * @version 1.0
+ * @since <pre>10/15/12</pre>
+ */
+public class PersonPresenter {
 
     private final PersonForm form;
 
-    private final PersonApplicationModel model;
+    private final PersonModel model;
 
-    public PersonController(final PersonForm form, final PersonApplicationModel model) {
+    public PersonPresenter(final PersonForm form, final PersonModel model) {
         this.form = form;
         this.model = model;
         init();
+    }
+
+    private void onChangeLastName() {
+        model.setLastName(form.getLastNameField().getText());
+        updateFullName();
+    }
+
+    private void onChangeFirstName() {
+        model.setFirstName(form.getFirstNameField().getText());
+        updateFullName();
+    }
+
+    private void updateFullName() {
+        form.setFullNameColor(model.check() ? Color.GREEN : Color.RED);
+        form.setFullNameText(model.getFullName());
+    }
+
+    private void onExit() {
+        System.exit(0);
     }
 
     private void init() {
         form.getExitButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                model.onExit();
+                onExit();
             }
         });
 
         form.getFirstNameField().getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                model.onChangeFirstName();
+                onChangeFirstName();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                model.onChangeFirstName();
+                onChangeFirstName();
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                model.onChangeFirstName();
+                onChangeFirstName();
             }
         });
 
         form.getLastNameField().getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                model.onChangeLastName();
+                onChangeLastName();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                model.onChangeLastName();
+                onChangeLastName();
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                model.onChangeLastName();
+                onChangeLastName();
             }
         });
     }
-
 
 }

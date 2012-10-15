@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>org.maxur.tutorials.Launcher</OriginalElement>
+  <nodes>
+    <node x="-400.42857142857144" y="-299.0">org.maxur.tutorials.PersonForm</node>
+    <node x="-416.7142857142857" y="-129.2857142857143">org.maxur.tutorials.PersonController</node>
+    <node x="-171.64285714285717" y="-221.28571428571428">org.maxur.tutorials.PersonModel</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="org.maxur.tutorials.PersonForm" target="org.maxur.tutorials.PersonModel">
+      <point x="0.0" y="-14.5" />
+      <point x="-321.49999999999994" y="-279.0" />
+      <point x="-61.96428571428572" y="-204.28571428571428" />
+      <point x="-29.25" y="14.5" />
+    </edge>
+    <edge source="org.maxur.tutorials.PersonController" target="org.maxur.tutorials.PersonModel">
+      <point x="36.0" y="-14.5" />
+      <point x="-325.14285714285717" y="-121.71428571428572" />
+      <point x="-329.9285714285714" y="-120.2857142857143" />
+      <point x="-330.5" y="-121.71428571428572" />
+      <point x="-109.46428571428572" y="-196.7142857142857" />
+      <point x="29.25" y="14.5" />
+    </edge>
+    <edge source="org.maxur.tutorials.PersonController" target="org.maxur.tutorials.PersonForm">
+      <point x="-36.0" y="-14.5" />
+      <point x="-368.0" y="-111.14285714285714" />
+      <point x="-370.9285714285714" y="-275.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.4000000000000001" x="46.28571428571422" y="-2.571428571428612" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

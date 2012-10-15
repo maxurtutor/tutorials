@@ -9,9 +9,9 @@ public class PersonController {
 
     private final PersonForm form;
 
-    private final PersonPresentationModel model;
+    private final PersonApplicationModel model;
 
-    public PersonController(final PersonForm form, final PersonPresentationModel model) {
+    public PersonController(final PersonForm form, final PersonApplicationModel model) {
         this.form = form;
         this.model = model;
         init();

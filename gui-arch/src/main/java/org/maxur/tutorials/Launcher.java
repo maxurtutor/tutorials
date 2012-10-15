@@ -5,12 +5,12 @@ import javax.swing.*;
 public class Launcher {
 
     public static void main(String[] args) {
-        final PersonPresentationModel model = new PersonPresentationModel(new PersonModelSimpleImpl());
 
-        final PersonForm form = new PersonForm(model);
+        final PersonForm form = new PersonForm();
+
+        final PersonApplicationModel model = new PersonApplicationModel(form, new PersonModelSimpleImpl());
+
         new PersonController(form, model);
-
-        model.addObserver(form);
 
         final JFrame frame = new JFrame("Registration Form");
         frame.setContentPane(form.getMainPanel());

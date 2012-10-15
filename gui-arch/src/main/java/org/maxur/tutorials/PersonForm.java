@@ -1,15 +1,14 @@
 package org.maxur.tutorials;
 
 import javax.swing.*;
-import java.util.Observable;
-import java.util.Observer;
+import java.awt.*;
 
 /**
  * @author Maxim Yunusov
  * @version 1.0
  * @since <pre>10/9/12</pre>
  */
-public class PersonForm implements Observer {
+public class PersonForm  {
 
     private JPanel mainPanel;
     private JButton exitButton;
@@ -18,20 +17,11 @@ public class PersonForm implements Observer {
     private JTextField fullNameField;
     private JTextField lastNameField;
 
-    private final PersonPresentationModel model;
-
-    public PersonForm(final PersonPresentationModel model) {
-        this.model = model;
+    public PersonForm() {
     }
 
     public JPanel getMainPanel() {
         return mainPanel;
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        getFullNameField().setForeground(model.getFullNameColor());
-        getFullNameField().setText(model.getFullName());
     }
 
     public JButton getExitButton() {
@@ -46,12 +36,15 @@ public class PersonForm implements Observer {
         return firstNameField;
     }
 
-    public JTextField getFullNameField() {
-        return fullNameField;
-    }
-
     public JTextField getLastNameField() {
         return lastNameField;
     }
 
+    void setFullNameText(final String value) {
+        fullNameField.setText(value);
+    }
+
+    void setFullNameColor(final Color color) {
+        fullNameField.setForeground(color);
+    }
 }

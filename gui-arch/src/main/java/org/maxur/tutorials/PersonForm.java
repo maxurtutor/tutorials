@@ -1,7 +1,6 @@
 package org.maxur.tutorials;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -19,9 +18,9 @@ public class PersonForm implements Observer {
     private JTextField fullNameField;
     private JTextField lastNameField;
 
-    private final PersonModel model;
+    private final PersonPresentationModel model;
 
-    public PersonForm(final PersonModel model) {
+    public PersonForm(final PersonPresentationModel model) {
         this.model = model;
     }
 
@@ -31,8 +30,7 @@ public class PersonForm implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        final PersonModel model = (PersonModel) o;
-        getFullNameField().setForeground(model.check() ? Color.GREEN : Color.RED);
+        getFullNameField().setForeground(model.getFullNameColor());
         getFullNameField().setText(model.getFullName());
     }
 

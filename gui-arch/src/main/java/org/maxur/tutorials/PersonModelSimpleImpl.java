@@ -1,17 +1,15 @@
 package org.maxur.tutorials;
 
-import java.util.Observable;
-
 /**
  * @author Maxim Yunusov
  * @version 1.0
  * @since <pre>10/10/12</pre>
  */
-public class PersonModelSimpleImpl extends Observable implements PersonModel {
+public class PersonModelSimpleImpl implements PersonModel {
 
-   String firstName = "";
+    private String firstName = "";
 
-   String lastName = "";
+    private String lastName = "";
 
     @Override
     public String getFirstName() {
@@ -19,10 +17,8 @@ public class PersonModelSimpleImpl extends Observable implements PersonModel {
     }
 
     @Override
-    public void setFirstName(String firstName) {
+    public void setFirstName(final String firstName) {
         this.firstName = firstName.trim();
-        setChanged();
-        notifyObservers();
     }
 
     @Override
@@ -31,10 +27,8 @@ public class PersonModelSimpleImpl extends Observable implements PersonModel {
     }
 
     @Override
-    public void setLastName(String lastName) {
+    public void setLastName(final String lastName) {
         this.lastName = lastName.trim();
-        setChanged();
-        notifyObservers();
     }
 
     @Override

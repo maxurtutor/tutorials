@@ -18,19 +18,22 @@ public class PersonApplicationModel {
         this.model = model;
     }
 
-    public void setFirstName(final String firstName) {
-        model.setFirstName(firstName);
-        update();
+    public void onChangeLastName() {
+        model.setLastName(form.getLastNameField().getText());
+        updateFullName();
     }
 
-    public void setLastName(final String lastName) {
-        model.setLastName(lastName);
-        update();
+    public void onChangeFirstName() {
+        model.setFirstName(form.getFirstNameField().getText());
+        updateFullName();
     }
 
-    private void update() {
+    private void updateFullName() {
         form.setFullNameColor(model.check() ? Color.GREEN : Color.RED);
         form.setFullNameText(model.getFullName());
     }
 
+    void onExit() {
+        System.exit(0);
+    }
 }

@@ -1,10 +1,6 @@
 package org.maxur.tutorials;
 
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * @author Maxim Yunusov
@@ -17,20 +13,12 @@ public class PersonPresenter {
 
     private final PersonModel model;
 
-    public PersonPresenter(final PersonForm form, final PersonModel model) {
-        this.form = form;
+    public PersonPresenter(final PersonModel model) {
         this.model = model;
-        init();
-    }
-
-    private void onChangeLastName() {
-        model.setLastName(form.getLastNameField().getText());
-        updateFullName();
-    }
-
-    private void onChangeFirstName() {
-        model.setFirstName(form.getFirstNameField().getText());
-        updateFullName();
+        this.form = new PersonForm();
+        this.form.addCommandOnButtonClick(new ExitCommand(), this.form.getExitButton());
+        this.form.addCommandOnChangeFieldValue(new ChangeFirstNameCommand(), this.form.getFirstNameField());
+        this.form.addCommandOnChangeFieldValue(new ChangeLastNameCommand(), this.form.getLastNameField());
     }
 
     private void updateFullName() {
@@ -38,51 +26,30 @@ public class PersonPresenter {
         form.setFullNameText(model.getFullName());
     }
 
-    private void onExit() {
-        System.exit(0);
+    private class ExitCommand implements Command {
+        @Override
+        public void execute() {
+            System.exit(0);
+        }
     }
 
-    private void init() {
-        form.getExitButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                onExit();
-            }
-        });
-
-        form.getFirstNameField().getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                onChangeFirstName();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                onChangeFirstName();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                onChangeFirstName();
-            }
-        });
-
-        form.getLastNameField().getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                onChangeLastName();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                onChangeLastName();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                onChangeLastName();
-            }
-        });
+    private class ChangeLastNameCommand implements Command {
+        @Override
+        public void execute() {
+            model.setLastName(form.getLastNameField().getText());
+            updateFullName();
+        }
     }
 
+    private class ChangeFirstNameCommand implements Command {
+        @Override
+        public void execute() {
+            model.setFirstName(form.getFirstNameField().getText());
+            updateFullName();
+        }
+    }
+
+    public PersonForm getView() {
+        return this.form;
+    }
 }

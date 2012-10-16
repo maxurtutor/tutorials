@@ -6,10 +6,8 @@ public class Launcher {
 
     public static void main(String[] args) {
 
-        final PersonForm form = new PersonForm();
-        final PersonModelSimpleImpl model = new PersonModelSimpleImpl();
-
-        new PersonPresenter(form, model);
+        final PersonPresenter presenter = new PersonPresenter(new PersonModelSimpleImpl());
+        final PersonForm form = presenter.getView();
 
         final JFrame frame = new JFrame("Registration Form");
         frame.setContentPane(form.getMainPanel());

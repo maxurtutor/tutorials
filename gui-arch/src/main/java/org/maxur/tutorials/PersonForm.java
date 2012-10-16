@@ -1,7 +1,11 @@
 package org.maxur.tutorials;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * @author Maxim Yunusov
@@ -46,5 +50,33 @@ public class PersonForm  {
 
     void setFullNameColor(final Color color) {
         fullNameField.setForeground(color);
+    }
+
+    void addCommandOnButtonClick(final Command exitCommand, JButton button) {
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                exitCommand.execute();
+            }
+        });
+    }
+
+    void addCommandOnChangeFieldValue(final Command command, final JTextField field) {
+        field.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                command.execute();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                command.execute();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                command.execute();
+            }
+        });
     }
 }

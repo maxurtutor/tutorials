@@ -1,6 +1,9 @@
 package org.maxur.tutorials;
 
-import java.awt.*;
+import org.maxur.tutorials.components.Form;
+import org.maxur.tutorials.components.Text;
+
+import java.awt.Color;
 
 /**
  * @author Maxim Yunusov
@@ -9,21 +12,20 @@ import java.awt.*;
  */
 public class PersonPresenter {
 
-    private final PersonForm form;
+    private final Form form;
 
     private final PersonModel model;
 
-    public PersonPresenter(final PersonModel model) {
+    public PersonPresenter(final PersonModel model, final PersonForm form) {
         this.model = model;
-        this.form = new PersonForm();
-        this.form.addCommandOnButtonClick(new ExitCommand(), this.form.getExitButton());
-        this.form.addCommandOnChangeFieldValue(new ChangeFirstNameCommand(), this.form.getFirstNameField());
-        this.form.addCommandOnChangeFieldValue(new ChangeLastNameCommand(), this.form.getLastNameField());
-    }
+        this.form = form;
+        this.form.getButton("exitButton").onClick(new ExitCommand());
+        this.form.getText("firstNameField").onChange(new ChangeFirstNameCommand());
+        this.form.getText("lastNameField").onChange(new ChangeLastNameCommand());
 
-    private void updateFullName() {
-        form.setFullNameColor(model.check() ? Color.GREEN : Color.RED);
-        form.setFullNameText(model.getFullName());
+        this.form.getText("firstNameField").setValue(model.getFirstName());
+        this.form.getText("lastNameField").setValue(model.getLastName());
+        updateFullName();
     }
 
     private class ExitCommand implements Command {
@@ -36,7 +38,7 @@ public class PersonPresenter {
     private class ChangeLastNameCommand implements Command {
         @Override
         public void execute() {
-            model.setLastName(form.getLastNameField().getText());
+            model.setLastName(form.getText("lastNameField").getValue());
             updateFullName();
         }
     }
@@ -44,12 +46,14 @@ public class PersonPresenter {
     private class ChangeFirstNameCommand implements Command {
         @Override
         public void execute() {
-            model.setFirstName(form.getFirstNameField().getText());
+            model.setFirstName(form.<Text>get("firstNameField").getValue());
             updateFullName();
         }
     }
 
-    public PersonForm getView() {
-        return this.form;
+    private void updateFullName() {
+        form.getText("fullNameField").setColor(model.check() ? Color.GREEN : Color.RED);
+        form.getText("fullNameField").setValue(model.getFullName());
     }
+
 }

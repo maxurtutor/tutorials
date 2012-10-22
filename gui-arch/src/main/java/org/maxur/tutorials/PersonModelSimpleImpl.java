@@ -11,6 +11,11 @@ public class PersonModelSimpleImpl implements PersonModel {
 
     private String lastName = "";
 
+    public PersonModelSimpleImpl(final String firstName, final String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     @Override
     public String getFirstName() {
         return firstName;

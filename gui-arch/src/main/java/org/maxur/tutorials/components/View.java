@@ -8,11 +8,11 @@ import java.util.Map;
  * @version 1.0
  * @since <pre>10/16/12</pre>
  */
-public class Form extends Component {
+public class View extends Component {
 
-    private Map<String, Component> components = new HashMap<String, Component>();
+    private Map<String, Component> components = new HashMap<>();
 
-    public Form(final String id) {
+    public View(final String id) {
         super(id);
     }
 
@@ -21,11 +21,11 @@ public class Form extends Component {
     }
 
     public Button getButton(final String id) {
-        return (Button) components.get(id);
+        return get(id);
     }
 
     public Text getText(final String id) {
-        return (Text) components.get(id);
+        return get(id);
     }
 
     @SuppressWarnings("unchecked")

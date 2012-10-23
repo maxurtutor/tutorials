@@ -1,7 +1,6 @@
 package org.maxur.tutorials;
 
-import org.maxur.tutorials.components.Form;
-import org.maxur.tutorials.components.Text;
+import org.maxur.tutorials.components.View;
 
 import java.awt.Color;
 
@@ -12,11 +11,11 @@ import java.awt.Color;
  */
 public class PersonPresenter {
 
-    private final Form form;
+    private final View form;
 
     private final PersonModel model;
 
-    public PersonPresenter(final PersonModel model, final PersonForm form) {
+    public PersonPresenter(final PersonModel model, final View form) {
         this.model = model;
         this.form = form;
         this.form.getButton("exitButton").onClick(new ExitCommand());
@@ -46,7 +45,7 @@ public class PersonPresenter {
     private class ChangeFirstNameCommand implements Command {
         @Override
         public void execute() {
-            model.setFirstName(form.<Text>get("firstNameField").getValue());
+            model.setFirstName(form.getText("firstNameField").getValue());
             updateFullName();
         }
     }

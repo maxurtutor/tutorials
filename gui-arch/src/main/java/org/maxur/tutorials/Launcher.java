@@ -1,20 +1,21 @@
 package org.maxur.tutorials;
 
-import javax.swing.*;
+import org.maxur.tutorials.components.Page;
+import org.maxur.tutorials.components.swing.PageSwingImpl;
+import org.maxur.tutorials.components.swing.ViewSwingImpl;
+import org.maxur.tutorials.views.PersonForm;
 
 public class Launcher {
 
     public static void main(String[] args) {
 
-        final PersonForm form =  new PersonForm();
+        final ViewSwingImpl view =  new ViewSwingImpl("mainForm", new PersonForm());
         final PersonModel model = new PersonModelSimpleImpl("Ivan", "Ivanov");
-        new PersonPresenter(model, form);
+        new PersonPresenter(model, view);
 
-        final JFrame frame = new JFrame("Registration Form");
-        frame.setContentPane(form.getMainPanel());
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
+        final Page page = new PageSwingImpl(view, "Registration Form");
+        page.show();
+
     }
 
 }

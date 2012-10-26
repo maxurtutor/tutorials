@@ -40,8 +40,8 @@
 
     <properties>
         <project.source.encoding>UTF-8</project.source.encoding>
-        <project.source.compile>1.7</project.source.compile>
-        <project.target.compile>1.7</project.target.compile>
+        <project.source.compile>1.8</project.source.compile>
+        <project.target.compile>1.8</project.target.compile>
     </properties>
 
     <modules>

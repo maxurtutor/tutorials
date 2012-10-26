@@ -14,5 +14,5 @@ public abstract class Button extends Component {
         super(id);
     }
 
-    public abstract void onClick(Command exitCommand);
+    public abstract void onClick(Command command);
 }

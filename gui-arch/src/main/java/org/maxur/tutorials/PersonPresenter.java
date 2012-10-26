@@ -18,36 +18,28 @@ public class PersonPresenter {
     public PersonPresenter(final PersonModel model, final View form) {
         this.model = model;
         this.form = form;
-        this.form.getButton("exitButton").onClick(new ExitCommand());
-        this.form.getText("firstNameField").onChange(new ChangeFirstNameCommand());
-        this.form.getText("lastNameField").onChange(new ChangeLastNameCommand());
+
+        this.form.getButton("exitButton").onClick(this::exit);
+        this.form.getText("firstNameField").onChange(this::changeFirstName);
+        this.form.getText("lastNameField").onChange(this::changeLastName);
 
         this.form.getText("firstNameField").setValue(model.getFirstName());
         this.form.getText("lastNameField").setValue(model.getLastName());
         updateFullName();
     }
 
-    private class ExitCommand implements Command {
-        @Override
-        public void execute() {
-            System.exit(0);
-        }
+    public void exit() {
+        System.exit(0);
     }
 
-    private class ChangeLastNameCommand implements Command {
-        @Override
-        public void execute() {
-            model.setLastName(form.getText("lastNameField").getValue());
-            updateFullName();
-        }
+    public void changeFirstName() {
+        model.setFirstName(form.getText("firstNameField").getValue());
+        updateFullName();
     }
 
-    private class ChangeFirstNameCommand implements Command {
-        @Override
-        public void execute() {
-            model.setFirstName(form.getText("firstNameField").getValue());
-            updateFullName();
-        }
+    public void changeLastName() {
+        model.setLastName(form.getText("lastNameField").getValue());
+        updateFullName();
     }
 
     private void updateFullName() {

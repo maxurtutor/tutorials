@@ -4,8 +4,6 @@ import org.maxur.tutorials.Command;
 import org.maxur.tutorials.components.Button;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * @author Maxim Yunusov
@@ -22,13 +20,8 @@ public class ButtonSwingImpl extends Button {
     }
 
     @Override
-    public void onClick(final Command exitCommand) {
-        this.button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                exitCommand.execute();
-            }
-        });
+    public void onClick(final Command command) {
+        this.button.addActionListener(e -> command.execute());
     }
 
 }

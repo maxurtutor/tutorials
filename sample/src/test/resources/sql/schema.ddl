@@ -1,0 +1,6 @@
+create table item(
+   ID     INTEGER PRIMARY KEY,
+   NAME   VARCHAR(50),
+   AMOUNT INTEGER,
+   CURRENCY VARCHAR(3)
+);

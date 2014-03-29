@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module>
+  <!-- Inherit our applications main module.                      -->
+  <inherits name='org.maxur.tdd.BasicProject' />
+
+  <!-- Specify the path to any remote services.                   -->
+  <servlet path="/BasicProject/greet" class="org.maxur.tdd.server.GreetingServiceImpl" />
+
+</module>

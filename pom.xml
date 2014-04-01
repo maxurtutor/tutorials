@@ -45,6 +45,7 @@
     </properties>
 
     <modules>
+        <module>spring</module>
     </modules>
 
     <profiles>
@@ -166,7 +167,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
-                <version>3.1</version>
                 <configuration>
                     <locales>en</locales>
                 </configuration>
@@ -175,7 +175,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>2.4</version>
                 <configuration>
                     <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
                     <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
